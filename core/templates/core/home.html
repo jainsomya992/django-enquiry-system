@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home - Django Enquiry{% endblock %}
+
+{% block content %}
+<h2>Enquiry Form</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <input name="name" placeholder="Name" required><br>
+  <input name="email" placeholder="Email" required><br>
+  <input name="phone" placeholder="Phone" required><br>
+  <textarea name="message" placeholder="Message"></textarea><br>
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
