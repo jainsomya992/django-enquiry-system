@@ -122,3 +122,42 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Environment Variable Loader
+import os
+
+def load_env_file(filepath):
+    """Simple loader for .env file"""
+    if os.path.exists(filepath):
+        with open(filepath, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    key_value = line.split('=', 1)
+                    if len(key_value) == 2:
+                        key, value = key_value
+                        # Only set if not already in environment
+                        if key not in os.environ:
+                            os.environ[key] = value.strip("'\"")
+
+load_env_file(BASE_DIR / '.env')
+
+# Email Configuration
+EMAIL_BACKEND = os.environ.get(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.console.EmailBackend'
+)
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = os.environ.get(
+    'DEFAULT_FROM_EMAIL',
+    EMAIL_HOST_USER
+)
+print("FINAL EMAIL BACKEND:", EMAIL_BACKEND)
+

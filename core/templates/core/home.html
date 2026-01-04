@@ -7,10 +7,41 @@
 
 <form method="POST">
   {% csrf_token %}
-  <input name="name" placeholder="Name" required><br>
-  <input name="email" placeholder="Email" required><br>
-  <input name="phone" placeholder="Phone" required><br>
-  <textarea name="message" placeholder="Message"></textarea><br>
-  <button type="submit">Submit</button>
-</form>
-{% endblock %}
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      {{ form.name.label_tag }}
+      {{ form.name }}
+      {% for error in form.name.errors %}
+      <div class="error">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.email.label_tag }}
+      {{ form.email }}
+      {% for error in form.email.errors %}
+      <div class="error">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.phone.label_tag }}
+      {{ form.phone }}
+      {% for error in form.phone.errors %}
+      <div class="error">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.message.label_tag }}
+      {{ form.message }}
+      {% for error in form.message.errors %}
+      <div class="error">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+  {% endblock %}
