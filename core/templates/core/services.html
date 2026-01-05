@@ -1,8 +1,54 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Services - Django Enquiry{% endblock %}
+{% block title %}Services - Django Enquiry System{% endblock %}
 
 {% block content %}
-<h1>Services</h1>
-<p>These are our services.</p>
+<div style="max-width: 800px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="margin-top: 0; color: #1a1a1a; font-size: 2rem;">Core Features</h2>
+        <p style="color: #666; font-size: 1.1rem;">A breakdown of the system's capabilities.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <!-- Service Card 1 -->
+        <div
+            style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #007bff;">
+            <h3 style="margin-top: 0; color: #333;">📝 Enquiry Management</h3>
+            <p style="color: #666; margin-bottom: 0;">
+                Secure handling of user enquiries using Django ModelForms. Includes server-side validation for phone
+                numbers and email addresses to ensure data integrity.
+            </p>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div
+            style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #28a745;">
+            <h3 style="margin-top: 0; color: #333;">💬 WhatsApp Alerts</h3>
+            <p style="color: #666; margin-bottom: 0;">
+                Integrated with <strong>Twilio</strong> for instant admin alerts. New enquiries trigger a WhatsApp
+                message to the admin, and users receive an automated "Thank You" confirmation.
+            </p>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div
+            style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #ffc107;">
+            <h3 style="margin-top: 0; color: #333;">📧 Email Notifications</h3>
+            <p style="color: #666; margin-bottom: 0;">
+                Dual-channel email system. Admins get detailed notification emails, while users receive a branded
+                auto-reply. Configurable via SMTP (Production).
+            </p>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div
+            style="background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #17a2b8;">
+            <h3 style="margin-top: 0; color: #333;">🔒 Secure Architecture</h3>
+            <p style="color: #666; margin-bottom: 0;">
+                Built with security first. PostgreSQL database integration for reliable storage. All sensitive
+                credentials are managed via environment variables (<code>.env</code>).
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}

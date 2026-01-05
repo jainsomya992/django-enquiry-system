@@ -3,18 +3,18 @@
 {% block title %}Home - Django Enquiry{% endblock %}
 
 {% block content %}
-<h2>Enquiry Form</h2>
+<div class="form-container">
+  <h2 class="form-title">Contact Us</h2>
+  <p class="form-subtitle">We'd love to hear from you. Send us a message!</p>
 
-<form method="POST">
-  {% csrf_token %}
-  <form method="post">
+  <form method="POST" novalidate>
     {% csrf_token %}
 
     <div class="form-group">
       {{ form.name.label_tag }}
       {{ form.name }}
       {% for error in form.name.errors %}
-      <div class="error">{{ error }}</div>
+      <div class="error-message">{{ error }}</div>
       {% endfor %}
     </div>
 
@@ -22,7 +22,7 @@
       {{ form.email.label_tag }}
       {{ form.email }}
       {% for error in form.email.errors %}
-      <div class="error">{{ error }}</div>
+      <div class="error-message">{{ error }}</div>
       {% endfor %}
     </div>
 
@@ -30,7 +30,7 @@
       {{ form.phone.label_tag }}
       {{ form.phone }}
       {% for error in form.phone.errors %}
-      <div class="error">{{ error }}</div>
+      <div class="error-message">{{ error }}</div>
       {% endfor %}
     </div>
 
@@ -38,10 +38,11 @@
       {{ form.message.label_tag }}
       {{ form.message }}
       {% for error in form.message.errors %}
-      <div class="error">{{ error }}</div>
+      <div class="error-message">{{ error }}</div>
       {% endfor %}
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="submit-btn">Send Message</button>
   </form>
-  {% endblock %}
+</div>
+{% endblock %}

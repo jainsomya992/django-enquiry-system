@@ -1,8 +1,41 @@
 {% extends 'core/base.html' %}
 
-{% block title %}About Us - Django Enquiry{% endblock %}
+{% block title %}About - Django Enquiry System{% endblock %}
 
 {% block content %}
-<h1>About Us</h1>
-<p>This is the About page.</p>
+<div
+    style="background: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;">
+    <h2 style="margin-top: 0; color: #1a1a1a;">About This Project</h2>
+    <p style="color: #555; font-size: 1.1rem; margin-bottom: 2rem;">
+        The <strong>Django Enquiry System</strong> is a production-ready backend application designed to demonstrate
+        robust form handling and real-time notification integrations.
+    </p>
+
+    <h3 style="color: #333; margin-bottom: 1rem;">Use Case</h3>
+    <p style="color: #666; margin-bottom: 2rem;">
+        In many business websites, "Contact Us" forms are often the primary lead generation tool. This project solves
+        the problem of unreliable communication by ensuring that every enquiry is validated, stored securely, and
+        immediately dispatched to the relevant stakeholders via multiple channels (Email and WhatsApp).
+    </p>
+
+    <h3 style="color: #333; margin-bottom: 1rem;">Technical Stack</h3>
+    <ul style="color: #666; padding-left: 1.5rem; margin-bottom: 2rem; list-style-type: disc;">
+        <li style="margin-bottom: 0.5rem;"><strong>Django 5 & Python:</strong> The core framework providing the MVC
+            architecture and ORM.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>PostgreSQL:</strong> Production-grade relational database for data
+            persistence.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>SMTP Integration:</strong> Secure email dispatch using Gmail's SMTP
+            server.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>Twilio API:</strong> Real-time WhatsApp messaging integration via a
+            service-layer architecture.</li>
+    </ul>
+
+    <h3 style="color: #333; margin-bottom: 1rem;">Engineering Highlights</h3>
+    <p style="color: #666;">
+        This project focuses on <strong>clean architecture</strong> and <strong>reliability</strong>. It features
+        rigorous environment variable management for security, a dedicated service layer for third-party APIs to keep
+        views clean, and graceful error handling to ensure a smooth user experience even if external services experience
+        downtime.
+    </p>
+</div>
 {% endblock %}
