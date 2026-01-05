@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from .models import Enquiry
 from .forms import EnquiryForm
+from .services.whatsapp import send_whatsapp_alert, send_whatsapp_user_confirmation
 
 def home(request):
     if request.method == "POST":
@@ -53,6 +54,10 @@ def home(request):
             except Exception as e:
                 # Log the error but don't stop the user flow
                 print(f"Error sending email: {e}")
+
+            # Send WhatsApp Alert using Helper Service
+            send_whatsapp_alert(enquiry)
+            send_whatsapp_user_confirmation(enquiry)
 
             messages.success(request, 'Thank you! Your enquiry has been submitted successfully.')
             return redirect('home')
