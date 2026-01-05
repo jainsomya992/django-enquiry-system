@@ -11,9 +11,27 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Environment Variable Loader
+def load_env_file(filepath):
+    """Simple loader for .env file"""
+    if os.path.exists(filepath):
+        with open(filepath, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    key_value = line.split('=', 1)
+                    if len(key_value) == 2:
+                        key, value = key_value
+                        # Only set if not already in environment
+                        if key not in os.environ:
+                            os.environ[key] = value.strip("'\"")
+
+load_env_file(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -74,12 +92,29 @@ WSGI_APPLICATION = "enquiry_site.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# Database Configuration
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+# Check if PostgreSQL settings are present in environment variables
+if os.environ.get('POSTGRES_DB') and os.environ.get('POSTGRES_USER'):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get('POSTGRES_DB'),
+            "USER": os.environ.get('POSTGRES_USER'),
+            "PASSWORD": os.environ.get('POSTGRES_PASSWORD', ''),
+            "HOST": os.environ.get('POSTGRES_HOST', 'localhost'),
+            "PORT": os.environ.get('POSTGRES_PORT', '5432'),
+        }
     }
-}
+else:
+    # Fallback to SQLite for development if no Postgres config found
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
@@ -123,24 +158,6 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Environment Variable Loader
-import os
-
-def load_env_file(filepath):
-    """Simple loader for .env file"""
-    if os.path.exists(filepath):
-        with open(filepath, 'r') as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#'):
-                    key_value = line.split('=', 1)
-                    if len(key_value) == 2:
-                        key, value = key_value
-                        # Only set if not already in environment
-                        if key not in os.environ:
-                            os.environ[key] = value.strip("'\"")
-
-load_env_file(BASE_DIR / '.env')
 
 # Email Configuration
 EMAIL_BACKEND = os.environ.get(
